@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import BookModel from "../../models/BookModel"
 import { SpinnerLoading } from "../Utils/SpinnerLoading"
+import { StarsReview } from "../Utils/StarsReview"
+import { CheckOutAndReviewBox } from "./CheckOutAndReviewBox"
 
 export const BookCheckOutPage = () => {
     const [book, setBook] = useState<BookModel>()
@@ -13,20 +15,20 @@ export const BookCheckOutPage = () => {
         const fetchBook = async () => {
             const baseUrl: string = `http://localhost:8080/api/books/${bookId}`
             const response = await fetch(baseUrl)
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error('Something went wrong!')
             }
             const responseJson = await response.json() // parse the response into json, still this is an async function
 
             const loadedBook: BookModel = {
                 id: responseJson.id,
-                    title: responseJson.title,
-                    author: responseJson.author,
-                    description: responseJson.description,
-                    copies: responseJson.copies,
-                    copiesAvailable: responseJson.copiesAvailable,
-                    category: responseJson.category,
-                    img: responseJson.img
+                title: responseJson.title,
+                author: responseJson.author,
+                description: responseJson.description,
+                copies: responseJson.copies,
+                copiesAvailable: responseJson.copiesAvailable,
+                category: responseJson.category,
+                img: responseJson.img
             }
 
             setBook(loadedBook)
@@ -34,17 +36,17 @@ export const BookCheckOutPage = () => {
         }
         fetchBook().catch((error: any) => {
             // is called when there is an Http error
-            setIsLoading(false) 
+            setIsLoading(false)
             setHttpError(error.message)
         })
     }, [])
 
-    if(isLoading) {
+    if (isLoading) {
         return (
             <SpinnerLoading />
         )
     } // Loading effect
-    if(httpError) {
+    if (httpError) {
         return (
             <div className="container m-5">
                 <p>{httpError}</p>
@@ -57,10 +59,10 @@ export const BookCheckOutPage = () => {
             <div className="container d-none d-lg-block">
                 <div className="row mt-5">
                     <div className="col-sm-2 col-md-2">
-                        {book?.img?
+                        {book?.img ?
                             <img src={book?.img} width='226' height='349' alt='Book' />
                             :
-                            <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')} width='226' height='349' alt='Book'/>
+                            <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')} width='226' height='349' alt='Book' />
                         }
                     </div>
                     <div className="col-4 col-md-4 container">
@@ -68,17 +70,19 @@ export const BookCheckOutPage = () => {
                             <h2>{book?.title}</h2>
                             <h5 className="text-primary">{book?.author}</h5>
                             <p className="lead">{book?.description}</p>
+                            <StarsReview rating={2.5} size={32} />
                         </div>
                     </div>
+                    <CheckOutAndReviewBox book={book} mobile={false} />
                 </div>
-                <hr/>
+                <hr />
                 {/* for mobile */}
-                <div className="container d-lg-none mt-5"> 
+                <div className="container d-lg-none mt-5">
                     <div className="d-flex justify-content-center align-items-center">
-                        {book?.img?
+                        {book?.img ?
                             <img src={book?.img} width='226' height='349' alt='Book' />
                             :
-                            <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')} width='226' height='349' alt='Book'/>
+                            <img src={require('./../../Images/BooksImages/book-luv2code-1000.png')} width='226' height='349' alt='Book' />
                         }
                     </div>
                     <div className="mt-4">
@@ -86,9 +90,11 @@ export const BookCheckOutPage = () => {
                             <h2>{book?.title}</h2>
                             <h5 className="text-primary">{book?.author}</h5>
                             <p className="lead">{book?.description}</p>
+                            <StarsReview rating={2.5} size={32} />
                         </div>
                     </div>
-                    <hr/>
+                    <CheckOutAndReviewBox book={book} mobile={true} />
+                    <hr />
                 </div>
             </div>
         </div>

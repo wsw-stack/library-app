@@ -17,10 +17,11 @@ public class SecurityConfiguration {
         // protect endpoints at /api/<type>/secure
         httpSecurity.authorizeRequests(configurer ->
                 configurer
-                        .antMatchers("/api/books/secure/**")
+                        .antMatchers("/api/books/secure/**",
+                                "/api/reviews/secure/**")
                         .authenticated())
                         .oauth2ResourceServer()
-                .jwt();
+                    .jwt();
         // add CORS filters
         httpSecurity.cors();
         // add content negotiation strategy

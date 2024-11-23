@@ -1,6 +1,7 @@
 package com.library.spring_boot_library.controller;
 
 import com.library.spring_boot_library.entity.Message;
+import com.library.spring_boot_library.requestmodels.AdminQuestionRequest;
 import com.library.spring_boot_library.service.MessagesService;
 import com.library.spring_boot_library.utils.ExtractJwt;
 import org.springframework.web.bind.annotation.*;
@@ -20,5 +21,13 @@ public class MessageController {
                             @RequestBody Message messageRequest) {
         String userEmail = ExtractJwt.payloadJWTExtraction(token, "\"sub\"");
         messagesService.postMessage(messageRequest, userEmail);
+    }
+
+    @PutMapping("/secure/admin/message")
+    public void putMessage(@RequestHeader(value = "Authorization") String token,
+                           @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
+        String userEmail = ExtractJwt.payloadJWTExtraction(token, "\"sub\"");
+//        String adminEmail = ExtractJwt.payloadJWTExtraction(token, "\"sub\"");
+        messagesService.putMessage(adminQuestionRequest, userEmail);
     }
 }

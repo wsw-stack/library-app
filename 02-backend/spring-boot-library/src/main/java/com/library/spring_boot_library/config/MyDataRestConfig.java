@@ -32,7 +32,9 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         /* Configure CORS Mapping*/
         cors.addMapping(config.getBasePath() + "/**")
                 .allowedOrigins(theAllowedOrigin)
-                .allowedMethods("GET", "POST", "PUT", "DELETE");
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*") // 允许的头部
+                .allowCredentials(true);
     }
 
     private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] theUnsupportedActions) {

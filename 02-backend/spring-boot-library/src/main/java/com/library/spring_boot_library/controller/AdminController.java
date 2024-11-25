@@ -3,14 +3,16 @@ package com.library.spring_boot_library.controller;
 import com.library.spring_boot_library.requestmodels.AddBookRequest;
 import com.library.spring_boot_library.service.AdminService;
 import com.library.spring_boot_library.utils.ExtractJwt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("http:/localhost:3000")
+@CrossOrigin("http://localhost:3000")
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
     private AdminService adminService;
 
+    @Autowired
     public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }

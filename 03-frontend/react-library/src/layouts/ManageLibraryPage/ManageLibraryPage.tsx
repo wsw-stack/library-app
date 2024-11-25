@@ -2,6 +2,9 @@ import { useOktaAuth } from "@okta/okta-react"
 import { useState } from "react"
 import { Redirect } from "react-router-dom"
 import { AdminMessages } from "./Components/AdminMessages"
+import AddBookRequest from "../../models/AddBookRequest"
+import { AddNewBook } from "./Components/AddNewBook"
+import { ChangeBookQuantityPage } from "./Components/ChangeBookQuantityPage"
 
 export const ManageLibraryPage = () => {
     const {authState} = useOktaAuth()
@@ -50,11 +53,11 @@ export const ManageLibraryPage = () => {
                     <div className="tab-content" id="nav-content">
                         <div className="tab-pane fade show active" id="nav-add-book" role="tabpanel"
                             aria-labelledby="nav-add-book-tab">
-                            Add new book
+                            <AddNewBook />
                         </div>
                         <div className="tab-pane fade" id="nav-quantity" role="tabpanel"
                             aria-labelledby="nav-quantity-tab">
-                            {changeQuantityOfBooksClick? <>Change quantity</>: <></>}
+                            {changeQuantityOfBooksClick? <ChangeBookQuantityPage />: <></>}
                         </div>
                         <div className="tab-pane fade" id="nav-messages" role="tabpanel"
                             aria-labelledby="nav-messages-tab">

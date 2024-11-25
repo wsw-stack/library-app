@@ -4,7 +4,9 @@ import com.library.spring_boot_library.dao.BookRepository;
 import com.library.spring_boot_library.entity.Book;
 import com.library.spring_boot_library.requestmodels.AddBookRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AdminService {
     private BookRepository bookRepository;
 
